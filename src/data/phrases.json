@@ -1,62 +1,122 @@
 [
-    {
-      "phrase": "Lo que sospechabas es verdad, procura ser amable con ellos, pues esta bondad ayudará a que todo mejore.",
-      "author": "proverbia.net"
-    },
-    {
-      "phrase": "Se te cumplirá un hermoso sueño y veras como otros sueños se hacen realidad.",
-      "author": "Proverbio Japones"
-      },
-    {
-      "phrase": "La realidad del ser humano es su pensamiento, no su cuerpo material.",
-      "author": "proverbia.net"
-    },
-    {
-      "phrase": "Te casarás con un atleta profesional. Si las competencias de comer pueden ser consideradas un deporte.",
-      "author": "proverbia.net"
-    },
-    {
-      "phrase": "Valiente es aquel que ama..",
-      "author": "proverbia.net"
-    },
-    {
-      "phrase": "No tienes que ser más rápido que el oso, solo tienes que ser más rápido que el chico más lento que corre de él.",
-      "author": "proverbia.net"
-    },
-    {
-      "phrase": "No te tomes la vida demasiado en serio. No saldrás de ella con vida.",
-      "author": "proverbia.net"
-    },
-    {
-      "phrase": "Mañana puede ser muy tarde para disfrutar lo que tienes hoy.",
-      "author": "ajescudero"
-    },
-    {
-      "phrase": "Cuando busques lo que mas deseas, recuerda hacer tu mejor esfuerzo.",
-      "author": "ajescudero"
-    },
-    {
-      "phrase": "No olvides que un amigo es un regalo que te das a ti mismo.",
-      "author": "ajescudero"
-    },
-     {
-      "phrase": "Alégrate, un camino de hermosas pasiones te espera y debes transitarlo.",
-      "author": "ajescudero"
-    },
-    {
-      "phrase": "Una reputación de mil años puede depender de la conducta de una hora",
-      "author": "Proverbio Japones"
-      },
-    {
-      "phrase": "Siente la felicidad que espera por ti y no olvides atraparla para mantenerla contigo.",
-      "author": "ajescudero"
-    },
-    {
-      "phrase": "Alégrate, un camino de hermosas pasiones te espera y debes transitarlo",
-      "author": "ajescudero"
-    },
-    {
-      "phrase": "No todo el mundo puede recibir las mismas cosas. Se practico.",
-      "author": "ajescudero"
-    }
+  {
+    "phrase": "Lo que buscas con tanto anhelo ya está más cerca de lo que imaginas.",
+    "author": "Proverbio Chino"
+  },
+  {
+    "phrase": "Una reputación de mil años puede depender de la conducta de una hora.",
+    "author": "Proverbio Japonés"
+  },
+  {
+    "phrase": "El mejor momento para plantar un árbol fue hace veinte años. El segundo mejor momento es ahora.",
+    "author": "Proverbio Chino"
+  },
+  {
+    "phrase": "No te tomes la vida demasiado en serio. No saldrás de ella con vida.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Lo que sospechabas es verdad, procura ser amable con ellos, pues esta bondad ayudará a que todo mejore.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Mañana puede ser muy tarde para disfrutar lo que tienes hoy.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "Tu próxima gran oportunidad está disfrazada de un problema pequeño.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Alégrate, un camino de hermosas pasiones te espera y debes transitarlo.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "No tienes que ser más rápido que el oso, solo tienes que ser más rápido que el chico más lento que corre de él.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Valiente es aquel que ama.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Un amigo es un regalo que te das a ti mismo.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "Quien camina en compañía nunca llega tarde.",
+    "author": "Proverbio Japonés"
+  },
+  {
+    "phrase": "Siente la felicidad que espera por ti y no olvides atraparla para mantenerla contigo.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "La paciencia es amarga, pero sus frutos son dulces.",
+    "author": "Proverbio Chino"
+  },
+  {
+    "phrase": "No todo el mundo puede recibir las mismas cosas. Sé práctico.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "Te casarás con un atleta profesional... si las competencias de comer pueden considerarse un deporte.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Cuando busques lo que más deseas, recuerda hacer tu mejor esfuerzo.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "La realidad del ser humano es su pensamiento, no su cuerpo material.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Se te cumplirá un hermoso sueño y verás cómo otros sueños se hacen realidad.",
+    "author": "Proverbio Japonés"
+  },
+  {
+    "phrase": "El que madruga encuentra el camino libre de obstáculos... y también de cafeterías abiertas.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Las flores que más perfuman son las que crecen entre las piedras.",
+    "author": "Proverbio Chino"
+  },
+  {
+    "phrase": "Hoy alguien pensó en ti y sonrió sin que te hayas dado cuenta.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "No importa cuán lento vayas, siempre y cuando no te detengas.",
+    "author": "Proverbio Chino"
+  },
+  {
+    "phrase": "Tu corazón ya sabe la respuesta que tu mente aún busca.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "El secreto de la felicidad no es hacer lo que uno quiere, sino querer lo que uno hace.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Un pequeño acto de bondad hoy puede cambiar el día de alguien para siempre.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "El bambú que se dobla con el viento es más fuerte que el roble que se resiste.",
+    "author": "Proverbio Japonés"
+  },
+  {
+    "phrase": "Pronto recibirás noticias que alegrarán tu corazón. O una factura. Probablemente lo segundo.",
+    "author": "proverbia.net"
+  },
+  {
+    "phrase": "Quien siembra con paciencia, cosecha con abundancia.",
+    "author": "ajescudero"
+  },
+  {
+    "phrase": "Cada persona que entra en tu vida te enseña algo que necesitabas aprender.",
+    "author": "proverbia.net"
+  }
 ]
