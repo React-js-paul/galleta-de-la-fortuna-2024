@@ -1,46 +1,96 @@
-# 🥠 Galleta de la Fortuna (Fortune Cookie) — Premium Edition
+# 🥠 Galleta de la Fortuna — Premium Edition
 
-Una experiencia web interactiva, inmersiva y de calidad *premium* para revelar frases inspiradoras o proverbios, diseñada con micro-interacciones, efectos 3D, animaciones complejas y diseño Glassmorphism.
+Una experiencia web **interactiva, inmersiva y de calidad premium** para revelar frases inspiradoras con animaciones físicas, efectos 3D y diseño de interfaz de nivel profesional.
 
-![Captura de la Galleta](public/fcookie.png)
+![Galleta de la Fortuna](public/fcookie.png)
 
-## ✨ Características y Diseño (UX/UI)
-- **Glassmorphism Avanzado**: Uso de `backdrop-filter` optimizado por GPU en la tarjeta de la frase para lograr un cristal de bordes asimétricos traslúcido elegante. 
-- **Entorno 3D Interactivo**: Fondo inmersivo con partículas doradas que flotan dinámicamente usando **WebGL/Three.js** simulando "polvo estelar" en tiempo real.
-- **Micro-interacciones Fluidas**: 
-  - Clic dinámico que genera chispas (`ClickSpark`).
-  - Animación cíclica de levitación y efecto *shake* físico en la galleta al romperla.
-- **Animaciones Cinematográficas (GSAP)**: Secuencias orquestadas para la aparición condicional de componentes (el texto emerge recién al primer clic).
-- **Decrypted Text Effect**: Efecto visual de *Scramble* personalizado cada vez que se desencripta el conocimiento de la fortuna.
-- **Música Ambiental Zen**: Reproductor de código manual manejando políticas restrictivas de *autoplay* en navegadores modernos.
+---
 
-## 🚀 Tecnologías y Frameworks Utilizados
+## ✨ Experiencia de Usuario (UX)
 
-Este proyecto sirve de demostración del dominio de herramientas modernas de front-end enfocadas a interfaces inmersivas (creativas) y rendimientos exigentes:
+El punto diferenciador de este proyecto es su **flujo de interacción cinematográfico**:
 
-* **React 18** + **Vite**: El núcleo reactivo y el compilador ultrarrápido HMR.
-* **Three.js** y **@react-three/fiber**: Componente `<Antigravity />` creando un *canvas* 3D de alta performance renderizando cientos de luces e instancias sin bloquear el *Data Object Model* (DOM).
-* **GSAP (GreenSock)** + `@gsap/react`: Motor de animaciones industrial de vanguardia manejando *Timelines* nativos de React.
-* **Tailwind CSS 3**: Sistema CSS utility-first responsable del paletaje *Mystic Dark*, diseño de botones en gradiente y *responsive design*.
-* **React Bits (UI Components)**: Adaptaciones avanzadas inspiradas en bibliotecas UI para destellos, descifrado tipográfico y *glass-surfaces*.
+1. Al entrar, solo se ve la galleta flotando y el botón "Descubrir"
+2. Al hacer clic, la galleta se **parte verticalmente** (izquierda y derecha) con un destello dorado
+3. Mientras la galleta está abierta, la tarjeta de cristal emerge con la nueva frase y el efecto scramble
+4. La galleta vuelve a unirse con un rebote elástico
+5. Todo el proceso dura exactamente **3 segundos**, perfectamente coreografiado
 
-## 📂 Arquitectura de Componentes
-* `App.jsx`: Orquestador global. Contiene el estado de la aplicación, el Canvas de fondo webGL y las políticas condicionales del DOM.
-* `/components/Antigravity.jsx`: Matemática de seno/coseno aplicada a mallas Dodecaédricas (`instancedMesh`) en 3D bajo luces ambientales y direccionales naranjas.
-* `/components/GlassSurface.jsx`: Patrón de diseño UI implementando un súper hack de aceleración hardware (`transform: translate3d`, `isolation: isolate`) para el correcto funcionamiento de los desenfoques sobre Canvas.
-* `/components/CookieBreaker.jsx`: Separación de lógica de disparo (Triggers) garantizando esperas controladas de UX (delays de 300ms, limpiezas de estado).
-* `/components/Phrase.jsx`: Animación tipográfica y lógica del Scramble effect (React Bits implementado manual).
+---
 
-## 🛠️ Instalación Local
+## 🚀 Stack Tecnológico
 
-1. Clona el repositorio localmente.
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
-3. Inicia el servidor de desarrollo:
-   ```bash
-   npm run dev
-   ```
+| Tecnología | Versión | Uso |
+|---|---|---|
+| **React** | 18.3 | Framework reactivo + gestión de estado y ciclo de vida |
+| **Vite** | 5.3 | Bundler ultrarrápido con HMR (Hot Module Replacement) |
+| **Three.js** | 0.167 | Motor 3D WebGL para el campo de partículas de fondo |
+| **@react-three/fiber** | 8.16 | Renderizador React para Three.js (Canvas 3D declarativo) |
+| **GSAP** | 3.14 | Motor de animaciones de nivel industrial para las coreografías UI |
+| **@gsap/react** | 2.1 | Hook `useGSAP` para integración limpia con el ciclo de vida de React |
+| **Tailwind CSS** | 3.4 | Sistema de estilos utility-first para el design system completo |
 
-> **💡 Nota Técnica de Diseño:** La interacción entre Canvas y HTML puro (z-indexes, opacidades del 4% hasta el 40%, bordes de sub-píxeles, texturas con gradientes cruzados) ha sido escrita a mano para garantizar compatibilidad multi-navegador sin colapsos de GPU.
+---
+
+## 🧩 Arquitectura de Componentes
+
+```
+src/
+├── App.jsx                  # Orquestador: estado, animaciones GSAP, layout
+├── components/
+│   ├── Antigravity.jsx      # 600 partículas 3D con física de repulsión al mouse
+│   ├── CookieBreaker.jsx    # Controlador de timing y eventos de interacción
+│   ├── DecryptedText.jsx    # Efecto de texto scramble (inspirado en React Bits)
+│   ├── Phrase.jsx           # Renderizador de la frase con DecryptedText
+│   ├── ClickSpark.jsx       # Chispas doradas en cada clic
+│   ├── GlassSurface.jsx     # Tarjeta de cristal con Glassmorphism
+│   └── MusicPlayer.jsx      # Reproductor de música con política de autoplay
+├── data/
+│   └── phrases.json         # Base de datos de frases y proverbios
+└── utils/
+    └── getRandomNumber.js   # Utilitario para selección aleatoria
+```
+
+---
+
+## 🎨 Decisiones Técnicas Destacadas
+
+### 1. Partículas 3D Reactivas al Mouse (`Antigravity.jsx`)
+- Usa `instancedMesh` de Three.js para renderizar **600 partículas** en un solo draw call
+- Cada partícula tiene su propia función de movimiento senoidal (tiempo + factor único)
+- Las partículas **huyen del cursor** usando conversión de coordenadas NDC → mundo 3D con `unproject(camera)`
+
+### 2. Animación de "Apertura" de la Galleta
+- La imagen PNG se divide en **dos mitades virtuales** con `clip-path: inset(0 50% 0 0)` y `clip-path: inset(0 0 0 50%)`
+- GSAP anima cada mitad de forma independiente (traslación X + rotación)
+- Un `radial-gradient` vertical simula el destello de luz interna al abrirse
+
+### 3. Glassmorphism sobre Canvas 3D
+- `backdrop-filter` no puede difuminar un Canvas WebGL (limitación de Chrome)
+- Solución: usar `background: rgba(255,255,255, 0.05)` + `isolation: isolate` + bordes asimétricos biselados (dorado arriba/oscuro abajo) que simulan el efecto de cristal sin depender de blur
+
+### 4. Timing Coreografiado del Scramble
+- `setDecryptTrigger(false)` → reset inmediato
+- `setTimeout(() => ..., 1400)` → justo cuando la galleta está en su máxima apertura
+- `setTimeout(() => setDecryptTrigger(true), 60)` → micro-delay para que React renderice la nueva frase antes de iniciar el scramble
+
+### 5. Música Ambiental y Política de Autoplay
+- Los navegadores modernos bloquean el audio sin interacción previa del usuario
+- Solución: listener en `window` que detecta el primer evento de clic y dispara `audio.play()` en ese momento
+
+---
+
+## 🛠️ Instalación
+
+```bash
+# Instalar dependencias
+npm install
+
+# Servidor de desarrollo con HMR
+npm run dev
+
+# Build de producción
+npm run build
+```
+
+> **Nota:** Para la música ambiental, agrega archivos `.mp3` en `public/music/` con el nombre `pista1.mp3`.

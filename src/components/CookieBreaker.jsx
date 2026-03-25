@@ -6,36 +6,46 @@ import photos from '../data/photos.json';
 const CookieBreaker = ({
 	setPhraseSelected,
 	setBgSelected,
-	setCookieShake,
 	setDecryptTrigger,
-	onFirstReveal,   // Callback para mostrar la tarjeta la primera vez
-	cardVisible,     // Si ya está visible, no volvemos a llamar onFirstReveal
+	onFirstReveal,
+	cardVisible,
+	onCrack,
 }) => {
 	const [loading, setLoading] = useState(false);
 
 	const nextPhrase = () => {
 		if (loading) return;
-
-		// 1. Si la tarjeta no está visible aún, la revelamos (primera vez)
-		if (!cardVisible && onFirstReveal) {
-			onFirstReveal();
-		}
-
-		// 2. Shake cookie
-		setCookieShake(true);
 		setLoading(true);
+
+		// 1. Resetear decrypt ANTES de todo para que la frase vieja no muestre el efecto
 		setDecryptTrigger(false);
 
+		// 2. Disparar animación de crack de la galleta inmediatamente
+		if (onCrack) onCrack();
+
+		// 3. Esperar 1.4s (galleta totalmente abierta) para mostrar la NUEVA frase + efecto
 		setTimeout(() => {
-			const indexRandom  = getRandomNumber(quotes.length);
-			const phraseRandom = quotes[indexRandom];
+			// Cambiar la frase
+			const phraseRandom = quotes[getRandomNumber(quotes.length)];
 			setPhraseSelected(phraseRandom);
 			setBgSelected(photos[getRandomNumber(photos.length)]);
-			setCookieShake(false);
-			setLoading(false);
-			// 3. Dispara el efecto de descifrado
-			setDecryptTrigger(true);
-		}, 300);
+
+			// Si la tarjeta no era visible aún, revelarla AHORA (sincronizado con la frase)
+			if (!cardVisible && onFirstReveal) {
+				onFirstReveal();
+			}
+
+			// Breve micro-delay para que React renderice la nueva frase antes de disparar el scramble
+			setTimeout(() => {
+				setDecryptTrigger(true);
+			}, 60);
+
+			// Desbloquear botón cuando la galleta termina su animación completa (~1.6s más)
+			setTimeout(() => {
+				setLoading(false);
+			}, 1600);
+
+		}, 1400);
 	};
 
 	return (

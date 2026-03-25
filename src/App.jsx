@@ -6,7 +6,6 @@ import quotes from './data/phrases.json';
 import getRandomNumber from './utils/getRandomNumber';
 import Phrase from './components/Phrase';
 import CookieBreaker from './components/CookieBreaker';
-import photos from './data/photos.json';
 import ClickSpark from './components/ClickSpark';
 import Antigravity from './components/Antigravity';
 import MusicPlayer from './components/MusicPlayer';
@@ -17,34 +16,31 @@ function App() {
 	const indexRandom = getRandomNumber(quotes.length);
 
 	const [phraseSelected, setPhraseSelected] = useState(quotes[indexRandom]);
-	const [bgSelected, setBgSelected]         = useState(photos[getRandomNumber(photos.length)]);
-	const [cookieShake, setCookieShake]       = useState(false);
-	const [decryptTrigger, setDecryptTrigger] = useState(false); // false = no revelar al inicio
-	const [cardVisible, setCardVisible]       = useState(false); // tarjeta oculta al inicio
+	const [decryptTrigger, setDecryptTrigger] = useState(false);
+	const [cardVisible, setCardVisible]       = useState(false);
 
-	// Refs
-	const cookieRef = useRef(null);
-	const cardRef   = useRef(null);
-	const btnRef    = useRef(null);
-	const footerRef = useRef(null);
-	const titleRef  = useRef(null);
+	// Refs para la galleta entera, las mitades y el glow interno
+	const cookieRef     = useRef(null);
+	const cookieTopRef  = useRef(null);
+	const cookieBotRef  = useRef(null);
+	const glowBurstRef  = useRef(null);
+	const cardRef       = useRef(null);
+	const btnRef        = useRef(null);
+	const footerRef     = useRef(null);
+	const titleRef      = useRef(null);
 
-	// ── Animación de ENTRADA (solo galleta, título y botón) ──
+	// ── Animación de ENTRADA inicial ──
 	useGSAP(() => {
 		const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-		// Título entra suavemente
 		tl.fromTo(titleRef.current,
 			{ opacity: 0, y: -30 },
 			{ opacity: 1, y: 0, duration: 0.9 }
 		)
-		// Galleta cae desde arriba
 		.fromTo(cookieRef.current,
 			{ opacity: 0, y: -80, scale: 0.7 },
 			{ opacity: 1, y: 0, scale: 1, duration: 1.1 },
 			'-=0.4'
 		)
-		// Botón aparece debajo
 		.fromTo(btnRef.current,
 			{ opacity: 0, y: 30 },
 			{ opacity: 1, y: 0, duration: 0.7 },
@@ -52,14 +48,59 @@ function App() {
 		);
 	}, []);
 
-	// ── Revelar la tarjeta con animación suave al hacer clic ──
+	// ── Función de crack: la galleta se abre y se cierra en 3s ──
+	const playCrackAnimation = () => {
+		const tl = gsap.timeline();
+
+		// Detener la levitación durante la animación (pausa) usando un override rápido
+		tl
+			// 0s–0.5s: Las dos mitades se separan con rebote
+			.to(cookieTopRef.current, {
+				x: -60, rotation: -5, duration: 0.5, ease: 'power2.out'
+			})
+			.to(cookieBotRef.current, {
+				x:  60, rotation:  5, duration: 0.5, ease: 'power2.out'
+			}, '<')
+
+			// 0.4s: Aparece el destello dorado en el centro
+			.fromTo(glowBurstRef.current,
+				{ opacity: 0, scaleX: 0.4, scaleY: 0.4 },
+				{ opacity: 1, scaleX: 1.6, scaleY: 1, duration: 0.35, ease: 'power2.out' },
+				'-=0.15'
+			)
+
+			// Hold abierto (1 segundo de pausa para dramatismo)
+			.to({}, { duration: 1 })
+
+			// 1.5s: El glow se desvanece
+			.to(glowBurstRef.current, { opacity: 0, scaleX: 0.4, duration: 0.3, ease: 'power2.in' })
+
+			// 1.8s–2.3s: Las mitades vuelven a unirse con un pequeño squish
+			.to(cookieTopRef.current, {
+				x: 0, rotation: 0, duration: 0.5, ease: 'back.out(1.5)'
+			}, '-=0.1')
+			.to(cookieBotRef.current, {
+				x: 0, rotation: 0, duration: 0.5, ease: 'back.out(1.5)'
+			}, '<')
+
+			// 2.5s–3s: Pequeño rebote de asentamiento en la galleta entera
+			.to(cookieRef.current, {
+				scaleY: 0.88, duration: 0.12, ease: 'power2.in'
+			})
+			.to(cookieRef.current, {
+				scaleY: 1, duration: 0.35, ease: 'elastic.out(1, 0.4)'
+			});
+
+		return tl;
+	};
+
+	// ── Revelar la tarjeta al primer clic ──
 	const handleReveal = () => {
 		setCardVisible(true);
-		// Pequeño delay para que React renderice la tarjeta antes de animarla
 		setTimeout(() => {
 			if (cardRef.current) {
 				gsap.fromTo(cardRef.current,
-					{ opacity: 0, scale: 0.92, y: 18 },
+					{ opacity: 0, scale: 0.92, y: 20 },
 					{ opacity: 1, scale: 1, y: 0, duration: 0.65, ease: 'power3.out' }
 				);
 			}
@@ -78,7 +119,6 @@ function App() {
 
 			<div className="bg-mystic flex flex-col justify-center items-center px-4 py-8 gap-y-6 relative z-10 min-h-[100dvh]">
 
-				{/* ── Fondo Antigravity ── */}
 				<Antigravity count={250} />
 
 				{/* ── Título ── */}
@@ -87,17 +127,62 @@ function App() {
 					<div className="gold-divider mt-3" />
 				</div>
 
-				{/* ── Galleta ── */}
+				{/* ── Galleta con mitades animables ── */}
 				<div
 					ref={cookieRef}
-					className={`relative z-10 max-w-[340px] w-full flex justify-center opacity-0 ${cookieShake ? 'cookie-shake' : 'cookie__animation'}`}
+					className="relative z-10 max-w-[340px] w-full flex justify-center items-center opacity-0 cookie__animation"
+					style={{ height: '288px' }} /* w-72 = 288px */
 				>
-					<img
-						src="/fcookie.png"
-						alt="Galleta de la fortuna"
-						className="w-64 md:w-72 select-none pointer-events-none"
+					{/* Mitad Izquierda */}
+					<div
+						ref={cookieTopRef}
+						className="absolute inset-0 flex justify-center items-center"
+						style={{
+							clipPath: 'inset(0 50% 0 0)', // mitad izquierda
+							transformOrigin: 'right center',
+						}}
+					>
+						<img
+							src="/fcookie.png"
+							alt=""
+							className="w-64 md:w-72 select-none pointer-events-none"
+						/>
+					</div>
+
+					{/* Mitad Derecha */}
+					<div
+						ref={cookieBotRef}
+						className="absolute inset-0 flex justify-center items-center"
+						style={{
+							clipPath: 'inset(0 0 0 50%)', // mitad derecha
+							transformOrigin: 'left center',
+						}}
+					>
+						<img
+							src="/fcookie.png"
+							alt=""
+							className="w-64 md:w-72 select-none pointer-events-none"
+						/>
+					</div>
+
+					{/* Destello dorado vertical entre las dos mitades */}
+					<div
+						ref={glowBurstRef}
+						className="absolute pointer-events-none"
+						style={{
+							top: '50%',
+							left: '50%',
+							transform: 'translate(-50%, -50%)',
+							width: '28px',
+							height: '260px',
+							opacity: 0,
+							background: 'radial-gradient(ellipse at center, rgba(251,191,36,0.95) 0%, rgba(255,220,100,0.7) 35%, transparent 75%)',
+							filter: 'blur(6px)',
+							borderRadius: '50%',
+						}}
 					/>
-					{/* Glow ring */}
+
+					{/* Glow ring de fondo de la galleta */}
 					<div
 						className="absolute inset-0 rounded-full pointer-events-none"
 						style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.18) 0%, transparent 65%)', zIndex: -1 }}
@@ -116,8 +201,7 @@ function App() {
 							borderLeft:   '1px solid rgba(251, 191, 36, 0.2)',
 							borderBottom: '1px solid rgba(0, 0, 0, 0.35)',
 							borderRight:  '1px solid rgba(0, 0, 0, 0.2)',
-							boxShadow: '0 16px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07)',
-							/* Comienza invisible, GSAP la anima */
+							boxShadow:    '0 16px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07)',
 							opacity: 0,
 						}}
 					>
@@ -134,20 +218,19 @@ function App() {
 					<CookieBreaker
 						setPhraseSelected={setPhraseSelected}
 						setBgSelected={setBgSelected}
-						setCookieShake={setCookieShake}
 						setDecryptTrigger={setDecryptTrigger}
 						onFirstReveal={handleReveal}
 						cardVisible={cardVisible}
+						onCrack={playCrackAnimation}
 					/>
 				</div>
 
-				{/* ── Autor — aparece junto con la tarjeta ── */}
+				{/* ── Autor ── */}
 				{cardVisible && (
 					<footer ref={footerRef} className="footer-author relative z-10" style={{ opacity: 0 }}>
 						✦ {phraseSelected.author} ✦
 					</footer>
 				)}
-
 			</div>
 		</ClickSpark>
 	);
