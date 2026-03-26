@@ -217,7 +217,6 @@ function App() {
 				<div ref={btnRef} className="relative z-10 opacity-0">
 					<CookieBreaker
 						setPhraseSelected={setPhraseSelected}
-						setBgSelected={setBgSelected}
 						setDecryptTrigger={setDecryptTrigger}
 						onFirstReveal={handleReveal}
 						cardVisible={cardVisible}

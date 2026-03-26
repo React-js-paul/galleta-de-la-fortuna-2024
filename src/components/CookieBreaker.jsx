@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import getRandomNumber from '../utils/getRandomNumber';
 import quotes from '../data/phrases.json';
-import photos from '../data/photos.json';
+
 
 const CookieBreaker = ({
 	setPhraseSelected,
-	setBgSelected,
 	setDecryptTrigger,
 	onFirstReveal,
 	cardVisible,
@@ -28,7 +27,7 @@ const CookieBreaker = ({
 			// Cambiar la frase
 			const phraseRandom = quotes[getRandomNumber(quotes.length)];
 			setPhraseSelected(phraseRandom);
-			setBgSelected(photos[getRandomNumber(photos.length)]);
+
 
 			// Si la tarjeta no era visible aún, revelarla AHORA (sincronizado con la frase)
 			if (!cardVisible && onFirstReveal) {
